@@ -34,14 +34,11 @@
 //   })
 
 const express = require('express')
+var cors = require('cors')
 const bodyParser = require('body-parser')
 const db = require('./queries')
-var cors = require('cors')
-const app = express()
-const port = 3000
-
-app.use(cors());
-app.options('*', cors());
+var app = express()
+var port = process.env.PORT || 3000
 
 app.use(bodyParser.json())
 app.use(
@@ -49,6 +46,12 @@ app.use(
     extended: true,
   })
 )
+const issue2options = {
+  origin: true,
+  methods: ["POST"],
+  credentials: true,
+  maxAge: 3600
+};
 
 
 
@@ -59,9 +62,9 @@ app.get('/product4/', db.getProdById4);
 app.get('/product/:id', db.getProdById3);
 app.get('/getoffer/:id', db.getOfferbyId);
 app.get('/getbasket/:id', db.getBuskets);
-app.post('/insertbasket/', db.insertBusket);
+app.post('/insertbasket/', cors(issue2options), db.insertBusket);
 app.get('/getpicture/', db.getPic);
-app.post('/register/',db.register);
+app.post('/register/', cors(issue2options),db.register);
   
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
