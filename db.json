@@ -1,0 +1,201 @@
+ [
+    {
+      "item_code": "1001052",
+      "item_name": "ข้าวสวยหอมมะลิ(ถ้วย)",
+      "New Name": "หงษ์ทอง ข้าวหอมมะลิใหม่ต้นฤดู 100% ขนาด 5 กิโลกรัม",
+      "item_group_id": "108",
+      "price": "89.72",
+      "avg_cost": "77.98",
+      "pred_group": "110",
+      "pred_item1": "1901012",
+      "pred_item1_name": "โฟร์โมสต์ ช็อคโกแลต 400CC.",
+      "pred_item2": "4101062",
+      "pred_item2_name": "แฟนต้าน้ำแดง1.25 ลิตร"
+    },
+    {
+      "item_code": "1701063",
+      "item_name": "ไข่กล่อง30 ฟองเบอร์1 ()",
+      "New Name": "ซีพีเอฟ ไข่ไก่ เบอร์ 1 10 ฟอง 1 แพ็ค",
+      "item_group_id": "109",
+      "price": "90",
+      "avg_cost": "63.82",
+      "pred_group": "111",
+      "pred_item1": "3701164",
+      "pred_item1_name": "เบนโตะปรุงรส 24 ก.",
+      "pred_item2": "2401007",
+      "pred_item2_name": "น้ำปลาตราปลาหมึก"
+    },
+    {
+      "item_code": "1901012",
+      "item_name": "โฟร์โมสต์ ช็อคโกแลต 400CC.",
+      "New Name": "โฟร์โมสต์ นมยูเอชที รสช็อกโกแลต ขนาด 225 มิลลิลิตร แพ็ค 36",
+      "item_group_id": "110",
+      "price": "19.63",
+      "avg_cost": "17.19",
+      "pred_group": "105",
+      "pred_item1": "201002",
+      "pred_item1_name": "กล้วยน้ำว้า",
+      "pred_item2": "202075",
+      "pred_item2_name": "ส้มโชกุน #72"
+    },
+    {
+      "item_code": "2101572",
+      "item_name": "มักกะโรนีไวท์ซอสเบคอนและแฮม 200ก. S&P",
+      "New Name": "ซีพี สปาเก็ตตี้ไก่สับ ขนาด 250 กรัม 3 ซอง",
+      "item_group_id": "109",
+      "price": "30.18",
+      "avg_cost": "20.74",
+      "pred_group": "111",
+      "pred_item1": "3701164",
+      "pred_item1_name": "เบนโตะปรุงรส 24 ก.",
+      "pred_item2": "2401007",
+      "pred_item2_name": "น้ำปลาตราปลาหมึก"
+    },
+    {
+      "item_code": "3701164",
+      "item_name": "เบนโตะปรุงรส 24 ก.",
+      "New Name": "เบนโตะปลาเส้น 15 กรัม ซีอิ้ว",
+      "item_group_id": "111",
+      "price": "14",
+      "avg_cost": "10.84",
+      "pred_group": "104",
+      "pred_item1": "102051",
+      "pred_item1_name": "พริกขี้หนู(100g.)",
+      "pred_item2": "102124",
+      "pred_item2_name": "มะนาว (5ลูก)"
+    },
+    {
+      "item_code": "4101062",
+      "item_name": "แฟนต้าน้ำแดง1.25 ลิตร",
+      "New Name": "แฟนต้าน้ำแดง 1.25 ลิตร",
+      "item_group_id": "110",
+      "price": "21.5",
+      "avg_cost": "16.91",
+      "pred_group": "105",
+      "pred_item1": "201002",
+      "pred_item1_name": "กล้วยน้ำว้า",
+      "pred_item2": "202075",
+      "pred_item2_name": "ส้มโชกุน #72"
+    },
+    {
+      "item_code": "4102038",
+      "item_name": "น้ำดื่มซีพี เฟรชมาร์ท 500 cc.",
+      "New Name": "เอเวียงน้ำแร่ธรรมชาติ 500 ซีซี",
+      "item_group_id": "110",
+      "price": "6",
+      "avg_cost": "5.5",
+      "pred_group": "105",
+      "pred_item1": "201002",
+      "pred_item1_name": "กล้วยน้ำว้า",
+      "pred_item2": "202075",
+      "pred_item2_name": "ส้มโชกุน #72"
+    },
+    {
+      "item_code": "4104376",
+      "item_name": "น้ำแอปเปิ้ล 100% 200 ml. มาลี",
+      "New Name": "น้ำแอปเปิ้ล 100% 1 ลิตร มาลี",
+      "item_group_id": "110",
+      "price": "12.22",
+      "avg_cost": "8.96",
+      "pred_group": "105",
+      "pred_item1": "201002",
+      "pred_item1_name": "กล้วยน้ำว้า",
+      "pred_item2": "202075",
+      "pred_item2_name": "ส้มโชกุน #72"
+    },
+    {
+      "item_code": "4105003",
+      "item_name": "ชาลิปตัน ไอซ์ที รสเลมอน",
+      "New Name": "ชาลิปตันไอซ์ที รสเลมอน 245 มล. x 6 กระป๋อง",
+      "item_group_id": "110",
+      "price": "11.21",
+      "avg_cost": "8.22",
+      "pred_group": "105",
+      "pred_item1": "201002",
+      "pred_item1_name": "กล้วยน้ำว้า",
+      "pred_item2": "202075",
+      "pred_item2_name": "ส้มโชกุน #72"
+    },
+    {
+      "item_code": "5604004",
+      "item_name": "กรรไกรตัดเล็บสแตนเลส",
+      "New Name": "กรรไกรอเนกประสงค์ ",
+      "item_group_id": "112",
+      "price": "20",
+      "avg_cost": "13.72",
+      "pred_group": "107",
+      "pred_item1": "706024",
+      "pred_item1_name": "น้ำจิ้มซีฟู้ด",
+      "pred_item2": "706052",
+      "pred_item2_name": "ซอสพริกโรซ่า 1 กก."
+    },
+    {
+      "item_code": "7602156",
+      "item_name": "ยาหม่อง  สูตร1 100g",
+      "New Name": "สังฆทานชุดยากล่องเล็ก 1 ชุด",
+      "item_group_id": "112",
+      "price": "171",
+      "avg_cost": "165.79",
+      "pred_group": "107",
+      "pred_item1": "706024",
+      "pred_item1_name": "น้ำจิ้มซีฟู้ด",
+      "pred_item2": "706052",
+      "pred_item2_name": "ซอสพริกโรซ่า 1 กก."
+    },
+    {
+      "item_code": "2401007",
+      "item_name": "น้ำปลาตราปลาหมึก",
+      "New Name": "น้ำปลาตราปลาหมึกแท้ 700 ซีซี",
+      "item_group_id": "111",
+      "price": "22.59",
+      "avg_cost": "14.83"
+    },
+    {
+      "item_code": "201002",
+      "item_name": "กล้วยน้ำว้า",
+      "New Name": "กล้วยหอม 1 แพค",
+      "item_group_id": "105",
+      "price": "20",
+      "avg_cost": "12.72"
+    },
+    {
+      "item_code": "202075",
+      "item_name": "ส้มโชกุน #72",
+      "New Name": "เบสท์ ฟู้ดส์ มาร์มาเลดส้ม 400กรัม",
+      "item_group_id": "105",
+      "price": "25",
+      "avg_cost": "23.92"
+    },
+    {
+      "item_code": "102051",
+      "item_name": "พริกขี้หนู(100g.)",
+      "New Name": "พริกขี้หนูป่น",
+      "item_group_id": "104",
+      "price": "14",
+      "avg_cost": "9.3"
+    },
+    {
+      "item_code": "102124",
+      "item_name": "มะนาว (5ลูก)",
+      "New Name": "ไลปอนเอฟ น้ำยาล้างจาน กลิ่นชามะนาว 500 มิลลิลิตร",
+      "item_group_id": "104",
+      "price": "26.87",
+      "avg_cost": "24.1"
+    },
+    {
+      "item_code": "706024",
+      "item_name": "น้ำจิ้มซีฟู้ด",
+      "New Name": "เด็กสมบูรณ์น้ำจิ้มซีฟู้ดส์ 335 กรัม",
+      "item_group_id": "107",
+      "price": "36.77",
+      "avg_cost": "27.13"
+    },
+    {
+      "item_code": "706052",
+      "item_name": "ซอสพริกโรซ่า 1 กก.",
+      "New Name": "ซอสพริกโรซ่า 300 กรัม",
+      "item_group_id": "107",
+      "price": "32",
+      "avg_cost": "19.12"
+    }
+  ]
