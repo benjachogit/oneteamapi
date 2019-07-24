@@ -39,8 +39,6 @@ const db = require('./queries')
 const app = express()
 const port = 3000
 
-res.header("Access-Control-Allow-Origin", "*");
-
 app.use(bodyParser.json())
 app.use(
   bodyParser.urlencoded({
