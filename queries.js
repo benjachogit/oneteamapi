@@ -131,9 +131,7 @@ const insertBusket = (request, response) => {
   const userid = request.body.userid
   const price = request.body.price
   const productname = request.body.productname
-  var today = new Date().toLocaleString('en-US', {
-  timeZone: 'Asia/Bangkok'
-});
+  var today = new Date()
   var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
   var dateTime = date+' '+time;
