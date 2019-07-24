@@ -40,9 +40,8 @@ var cors = require('cors')
 const app = express()
 const port = 3000
 
-app.use(cors({
-  credentials: true,
-}));
+app.use(cors());
+app.options('*', cors());
 
 app.use(bodyParser.json())
 app.use(
