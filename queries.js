@@ -126,14 +126,14 @@ const getProdById2 = (request, response) => {
 
 
 // insert buskets
-const insertBusket = (request, response) => {
+const insertBusket = async (request, response) => {
   const item_code = request.body.item_code
   const userid = request.body.userid
   const price = request.body.price
   const productname = request.body.productname
   
   var today = new Date()
-  today.setHours(today.getHours() + 7);
+  await today.setHours(today.getHours() + 7);
   var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
   var dateTime = date+' '+time;
