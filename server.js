@@ -58,7 +58,7 @@ const issue2options = {
 app.get('/', db.getProd);
 app.get('/product3/:id', db.getProdById3);
 app.get('/product2/:id', db.getProdById2);
-app.get('/product4/', db.getProdById4);
+app.get('/product4/', cors(issue2options),db.getProdById4);
 app.get('/product/:id', db.getProdById3);
 app.get('/getoffer/:id', db.getOfferbyId);
 app.get('/getbasket/:id', db.getBuskets);
