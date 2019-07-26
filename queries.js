@@ -58,9 +58,23 @@ const getProdById3 = (request, response) => {
 }
 
 
+//get all price week
+const getPriceGraph = (request, response) => {
+  const id = request.params.id
+  pool.query('SELECT * FROM public_b1.retail_comp WHERE item_id = $1 and timestamp IN (SELECT max(timestamp) FROM public_b1.retail_comp) ORDER BY price ASC limit 1;', [id], (error, results) => {
+  //pool.query('SELECT * FROM public_b1.retail_comp WHERE item_id = $1;', [id], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+}
+
+
+
 const getProdById4 = (request, response) => {
   //const id = request.params.id
-  pool.query('SELECT * FROM public_b1.retail_comp WHERE timestamp IN (SELECT max(timestamp) FROM public_b1.retail_comp);',(error, results) => {
+  pool.query('SELECT * FROM public_b1.retail_comp WHERE timestamp IN (SELECT max(timestamp) FROM public_b1.retail_comp ORDER BY retail_name);',(error, results) => {
   //pool.query('SELECT * FROM public_b1.retail_comp WHERE item_id = $1;', [id], (error, results) => {
     if (error) {
      throw error
