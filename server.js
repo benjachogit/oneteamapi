@@ -55,17 +55,17 @@ const issue2options = {
 
 
 
-app.get('/', db.getProd);
-app.get('/product3/:id', db.getProdById3);
-app.get('/product2/:id', db.getProdById2);
+app.get('/', cors(issue2options), db.getProd);
+app.get('/product3/:id', cors(issue2options), db.getProdById3);
+app.get('/product2/:id', cors(issue2options), db.getProdById2);
 app.get('/product4/', cors(issue2options),db.getProdById4);
-app.get('/product/:id', db.getProdById3);
-app.get('/getoffer/:id', db.getOfferbyId);
-app.get('/getbasket/:id', db.getBuskets);
+app.get('/product/:id', cors(issue2options), db.getProdById3);
+app.get('/getoffer/:id', cors(issue2options), db.getOfferbyId);
+app.get('/getbasket/:id', cors(issue2options), db.getBuskets);
 app.post('/insertbasket/', cors(issue2options), db.insertBusket);
-app.get('/getpicture/', db.getPic);
+app.get('/getpicture/', cors(issue2options), db.getPic);
 app.post('/register/', cors(issue2options),db.register);
-app.get('/getgraph/', db.getPriceGraph);
+app.get('/getgraph/', cors(issue2options), db.getPriceGraph);
   
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
