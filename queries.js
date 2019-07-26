@@ -74,7 +74,7 @@ const getProdById3 = (request, response) => {
 
 const getProdById4 = (request, response) => {
   //const id = request.params.id
-  pool.query('SELECT * FROM public_b1.retail_comp WHERE timestamp IN (SELECT max(timestamp) FROM public_b1.retail_comp ORDER BY retail_name ASC);',(error, results) => {
+  pool.query('SELECT * FROM public_b1.retail_comp WHERE timestamp IN (SELECT max(timestamp) FROM public_b1.retail_comp )ORDER BY retail_name ASC;',(error, results) => {
   //pool.query('SELECT * FROM public_b1.retail_comp WHERE item_id = $1;', [id], (error, results) => {
     if (error) {
      throw error
