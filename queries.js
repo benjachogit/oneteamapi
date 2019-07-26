@@ -58,17 +58,17 @@ const getProdById3 = (request, response) => {
 }
 
 
-// //get all price week
-// const getPriceGraph = (request, response) => {
-//   const id = request.params.id
-//   pool.query('SELECT * FROM public_b1.retail_comp WHERE item_id = $1 and timestamp IN (SELECT max(timestamp) FROM public_b1.retail_comp where max(timestamp)-timestamp > 7);', [id], (error, results) => {
-//   //pool.query('SELECT * FROM public_b1.retail_comp WHERE item_id = $1;', [id], (error, results) => {
-//     if (error) {
-//       throw error
-//     }
-//     response.status(200).json(results.rows)
-//   })
-// }
+//get all price week
+const getPriceGraph = (request, response) => {
+  const id = request.params.id
+  pool.query('SELECT * FROM public_b1.retail_comp WHERE item_id = $1 and ( SELECT max(timestamp) FROM public_b1.retail_comp )- date(timestamp) < 7 ;', [id], (error, results) => {
+  //pool.query('SELECT * FROM public_b1.retail_comp WHERE item_id = $1;', [id], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+}
 
 
 
@@ -191,5 +191,6 @@ const insertBusket = async (request, response) => {
     getOfferbyId,
     getBuskets,
     getPic,
-    register
+    register,
+    getPriceGraph
   }
