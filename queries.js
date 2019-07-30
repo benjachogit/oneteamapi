@@ -180,6 +180,47 @@ const insertBusket = async (request, response) => {
 
 
 
+// insert buskets
+const insertBusketOffer = async (request, response) => {
+  const item_code = request.body.item_code
+  const userid = request.body.userid
+  const price = request.body.price
+  const productname = request.body.productname
+  
+  var today = new Date()
+  await today.setHours(today.getHours() + 7);
+  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  var dateTime = date+' '+time;
+  
+  pool.query('SELECT * FROM public_b1.buskets WHERE item_code = $1 and user_id = $2;', [item_code,userid], (error, results1) => {
+    if (error) {
+      throw error
+    }
+    //response.send(results1.rows[0])
+    if(results1.rows.length > 0){
+      var number = results1.rows[0].number
+      number =  parseInt(number) + 2
+      console.log(dateTime);
+      pool.query('UPDATE public_b1.buskets SET number = $1 , update_time = $4 WHERE item_code = $2 and user_id = $3;', [number,item_code,userid,dateTime], (error, results2) => {})
+      response.status(200).send('update')
+    }
+  else{
+    console.log(dateTime);
+    pool.query('INSERT INTO public_b1.buskets (item_code,user_id,price,item_name,number,update_time) VALUES ($1, $2, $3, $4, 2, $5)', [item_code, userid,price,productname,dateTime], (error, results3) => {
+  if (error) {
+    throw error
+  }else{
+    response.status(200).send('Added')
+  }
+  })
+ }
+ })
+}
+
+
+
+
 
 
   module.exports = {
@@ -192,5 +233,6 @@ const insertBusket = async (request, response) => {
     getBuskets,
     getPic,
     register,
-    getPriceGraph
+    getPriceGraph,
+    insertBusketOffer
   }
