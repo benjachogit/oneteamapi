@@ -218,7 +218,7 @@ const insertBusketOffer = async (request, response) => {
       number =  parseInt(number) + 2
       promo = parseInt(promo) + 1
       console.log(dateTime);
-      pool.query('UPDATE public_b1.buskets SET number = $1 , update_time = $4 WHERE item_code = $2 and user_id = $3 and promo = $5;', [number,item_code,userid,dateTime,promo], (error, results2) => {})
+      pool.query('UPDATE public_b1.buskets SET number = $1 , update_time = $4 , promo = $5 WHERE item_code = $2 and user_id = $3;', [number,item_code,userid,dateTime,promo], (error, results2) => {})
       response.status(200).send('update')
     }
   else{
