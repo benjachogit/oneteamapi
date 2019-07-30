@@ -45,7 +45,21 @@ const getOfferbyId = (request, response) => {
   })
 }
 
+//QRCODE OFFER
+const getProdById3offer = (request, response) => {
+  const id = request.params.id
+  pool.query('SELECT * FROM public_b1.retail_comp WHERE item_id = $1 and timestamp IN (SELECT max(timestamp) FROM public_b1.retail_comp) ORDER BY price ASC limit 1;', [id], (error, results) => {
+  //pool.query('SELECT * FROM public_b1.retail_comp WHERE item_id = $1;', [id], (error, results) => {
+    if (error) {
+      throw error
+    }
+    results.promo ="y";
+    response.status(200).json(results.rows)
+  })
+}
 
+
+//QRCODE
 const getProdById3 = (request, response) => {
   const id = request.params.id
   pool.query('SELECT * FROM public_b1.retail_comp WHERE item_id = $1 and timestamp IN (SELECT max(timestamp) FROM public_b1.retail_comp) ORDER BY price ASC limit 1;', [id], (error, results) => {
@@ -180,7 +194,7 @@ const insertBusket = async (request, response) => {
 
 
 
-// insert buskets
+// insert buskets offer
 const insertBusketOffer = async (request, response) => {
   const item_code = request.body.item_code
   const userid = request.body.userid
