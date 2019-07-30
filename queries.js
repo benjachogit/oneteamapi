@@ -53,7 +53,7 @@ const getProdById3offer = (request, response) => {
     if (error) {
       throw error
     }
-    results.promo ="y";
+    results["promo"] = 'y';
     response.status(200).json(results.rows)
   })
 }
