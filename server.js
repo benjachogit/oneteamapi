@@ -65,7 +65,7 @@ app.get('/getbasket/:id', cors(issue2options), db.getBuskets);
 app.post('/insertbasket/', cors(issue2options), db.insertBusket);
 app.get('/getpicture/', cors(issue2options), db.getPic);
 app.post('/register/', cors(issue2options),db.register);
-app.get('/getgraph/', cors(issue2options), db.getPriceGraph);
+app.get('/getgraph/:id', cors(issue2options), db.getPriceGraph);
   
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
