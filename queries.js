@@ -37,7 +37,7 @@ const getPic = (request, response) => {
 //get offer
 const getOfferbyId = (request, response) => {
   const id = request.params.id
-  pool.query('SELECT item_code , new_name , item_pic , qr_pic FROM public_b1.item_offer WHERE item_code IN (SELECT pred_item1 FROM public_b1.item_offer WHERE item_code = $1) OR item_code IN (SELECT pred_item2 FROM public_b1.item_offer WHERE item_code = $1) ;', [id], (error, results) => {
+  pool.query('SELECT item_code , new_name , item_pic , qr_pic , qr_promo FROM public_b1.item_offer WHERE item_code IN (SELECT pred_item1 FROM public_b1.item_offer WHERE item_code = $1) OR item_code IN (SELECT pred_item2 FROM public_b1.item_offer WHERE item_code = $1) ;', [id], (error, results) => {
     if (error) {
       throw error
     }
