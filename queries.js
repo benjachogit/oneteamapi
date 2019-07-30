@@ -223,7 +223,7 @@ const insertBusketOffer = async (request, response) => {
     }
   else{
     console.log(dateTime);
-    pool.query('INSERT INTO public_b1.buskets (item_code,user_id,price,item_name,number,update_time,promo) VALUES ($1, $2, $3, $4, 2, $5, $6)', [item_code, userid,price,productname,dateTime,promo], (error, results3) => {
+    pool.query('INSERT INTO public_b1.buskets (item_code,user_id,price,item_name,number,update_time,promo) VALUES ($1, $2, $3, $4, 2, $5, 1)', [item_code, userid,price,productname,dateTime], (error, results3) => {
   if (error) {
     throw error
   }else{
