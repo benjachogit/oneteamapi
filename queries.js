@@ -180,7 +180,7 @@ const insertBusket = async (request, response) => {
     }
   else{
     console.log(dateTime);
-    pool.query('INSERT INTO public_b1.buskets (item_code,user_id,price,item_name,number,update_time) VALUES ($1, $2, $3, $4, 1, $5)', [item_code, userid,price,productname,dateTime], (error, results3) => {
+    pool.query('INSERT INTO public_b1.buskets (item_code,user_id,price,item_name,number,update_time,promo) VALUES ($1, $2, $3, $4, 1, $5,0)', [item_code, userid,price,productname,dateTime], (error, results3) => {
   if (error) {
     throw error
   }else{
@@ -213,15 +213,17 @@ const insertBusketOffer = async (request, response) => {
     }
     //response.send(results1.rows[0])
     if(results1.rows.length > 0){
+      var promo = results1.rows[0].promo
       var number = results1.rows[0].number
       number =  parseInt(number) + 2
+      promo = parseInt(promo) + 1
       console.log(dateTime);
-      pool.query('UPDATE public_b1.buskets SET number = $1 , update_time = $4 WHERE item_code = $2 and user_id = $3;', [number,item_code,userid,dateTime], (error, results2) => {})
+      pool.query('UPDATE public_b1.buskets SET number = $1 , update_time = $4 WHERE item_code = $2 and user_id = $3 and promo = $5;', [number,item_code,userid,dateTime,promo], (error, results2) => {})
       response.status(200).send('update')
     }
   else{
     console.log(dateTime);
-    pool.query('INSERT INTO public_b1.buskets (item_code,user_id,price,item_name,number,update_time) VALUES ($1, $2, $3, $4, 2, $5)', [item_code, userid,price,productname,dateTime], (error, results3) => {
+    pool.query('INSERT INTO public_b1.buskets (item_code,user_id,price,item_name,number,update_time,promo) VALUES ($1, $2, $3, $4, 2, $5, $6)', [item_code, userid,price,productname,dateTime,promo], (error, results3) => {
   if (error) {
     throw error
   }else{
