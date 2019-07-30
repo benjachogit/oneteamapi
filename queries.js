@@ -248,5 +248,6 @@ const insertBusketOffer = async (request, response) => {
     getPic,
     register,
     getPriceGraph,
-    insertBusketOffer
+    insertBusketOffer,
+    getProdById3offer
   }
