@@ -67,8 +67,8 @@ app.get('/getpicture/', cors(issue2options), db.getPic);
 app.post('/register/', cors(issue2options),db.register);
 app.post('/insertbasketoffer/', cors(issue2options), db.insertBusketOffer);
 app.get('/productoffer/:id', cors(issue2options), db.getProdById3offer);
-//app.get('/getgraph/:id', cors(issue2options), db.getGraph);
-//app.get('/alluser', cors(issue2options), db.getUser);
+app.get('/getgraph/:id', cors(issue2options), db.getGraph);
+app.get('/alluser', cors(issue2options), db.getUser);
   
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
