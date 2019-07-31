@@ -123,13 +123,81 @@ const getProdById2 = (request, response) => {
  
  const getGraph = (req, res) => {
     const id = req.params.id
-   res.status(200).json({"A":"A"})
+    const id = req.params.id
+    var bigc = [];
+    var lotus = [];
+    var makro = [];
+    var s1 = [];
+    var date = [];
+    var datea;
+    var lowestprice = 100000;
+    var flag = 1;
+    //var dateb  = new Date('1999-01-01');
+   
+    pool.query('SELECT * FROM public_b1.retail_comp WHERE item_id = $1 and ( SELECT max(timestamp) FROM public_b1.retail_comp )- date(timestamp) < 7 ;', [id], (error, results) => {
+      if (error) {
+        throw error
+      }
+      else{
+        var dateb  = new Date('1999-01-01');
+      
+          var j = 0;
+          var num = results.rows.length;
+          var i = num/7;
+          console.log(i)
+         results.rows.forEach(element => {
+             j++;
+              datea  = new Date(element.timestamp);
+               
+              if(datea > dateb){
+                dateb = datea;
+                date.push(dateb);
+                lowestprice = 1000000;
+                
+              }
+              
+              if((lowestprice >= element.price) && (element.price > 0)){
+                lowestprice = element.price;
+              }  
+  
+              if(j == i){
+                s1.push(lowestprice)
+                j = 0;
+              }
+              
+              if(element.retail_name == "bigc"){
+                    bigc.push(element.price)
+              }else if(element.retail_name == "lotus"){
+                    lotus.push(element.price)
+              }else if(element.retail_name == "makro"){
+                     makro.push(element.price)
+              }
+  
+        });
+  
+      // res.json()
+      var a = [];
+      a.push({"date":date,"bigc":bigc,"lotus":lotus,"makro":makro,"s1":s1})
+      // res.status(200).json(a[0].date)
+      res.status(200).json(a)
+        
+    }
+  });
   }
    
    //getUser
    const getUser = (req, res) => {
         
-   res.status(200).json({"A":"A"})
+  const query = 'SELECT * FROM userlogin ORDER BY id DESC LIMIT 1;';
+              //const query = 'SELECT * FROM public_b1.retail_comp;';
+          
+              pool.query(query,(err,result)=>{
+                  if(err){
+                       console.log(err);
+                  }else{
+                      res.status(200).json(result.rows)
+                   }
+              })
    }
    
  
