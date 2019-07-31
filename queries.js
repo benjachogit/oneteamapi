@@ -123,7 +123,6 @@ const getProdById2 = (request, response) => {
  
  const getGraph = (req, res) => {
     const id = req.params.id
-    const id = req.params.id
     var bigc = [];
     var lotus = [];
     var makro = [];
