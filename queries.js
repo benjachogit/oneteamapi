@@ -317,7 +317,7 @@ const insertBusketOffer = async (request, response) => {
 
 //rate
 const rate = (req, res, next) => {
-    const query = `INSERT INTO PetchemRateByCustomer (Business,CustomerCode , CustomerName ,InterestRate,FromDate,ToDate) VALUES ($1,$2,$3,$4,$5,$6)`;
+    const query = `INSERT INTO public_b1.PetchemRateByCustomer (Business,CustomerCode , CustomerName ,InterestRate,FromDate,ToDate) VALUES ($1,$2,$3,$4,$5,$6)`;
     var business = req.body.business;
     var customercode = req.body.customercode;
     var customername = req.body.customername;
@@ -330,6 +330,9 @@ const rate = (req, res, next) => {
                 if(err){
                     console.log(err);
                 }
+              else{
+                response.status(200).send('Added')
+              }
             })
          
        
