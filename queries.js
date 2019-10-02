@@ -315,6 +315,29 @@ const insertBusketOffer = async (request, response) => {
 
 
 
+//rate
+const rate = (req, res, next) => {
+    const query = `INSERT INTO PetchemRateByCustomer (Business,CustomerCode , CustomerName ,InterestRate,FromDate,ToDate) VALUES ($1,$2,$3,$4,$5,$6)`;
+    var business = req.body.business;
+    var customercode = req.body.customercode;
+    var customername = req.body.customername;
+    var interestrate = req.body.interestrate;
+    var from = req.body.from;
+    var to = req.body.to;
+
+    
+            pool.query(query,[business,customercode,customername,interestrate,from,to],(err,result) => {
+                if(err){
+                    console.log(err);
+                }
+            })
+         
+       
+    }
+
+
+
+
 
 
 
@@ -332,5 +355,6 @@ const insertBusketOffer = async (request, response) => {
     insertBusketOffer,
     getProdById3offer,
     getGraph,
-    getUser
+    getUser,
+    rate
   }
