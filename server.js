@@ -74,11 +74,6 @@ app.post('/rate/', cors(issue2options),db.rate);
 
 
 // start face api //
-/*
-
-'use strict';
-
-const request = require('request');
 
 // Replace <Subscription Key> with your valid subscription key.
 const subscriptionKey = 'e8a03ab9d5ba41c4af0cb79dde5c4926';
@@ -110,7 +105,7 @@ const options = {
     }
 };
 
-request.post('/detect/',options, (error, response, body) => {
+app.post('/detect/',options, (error, response, body) => {
   if (error) {
     console.log('Error: ', error);
     return;
@@ -119,7 +114,7 @@ request.post('/detect/',options, (error, response, body) => {
   console.log('JSON Response\n');
   console.log(jsonResponse);
 });
-*/
+
 
 // end face api //
 
