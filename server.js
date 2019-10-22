@@ -74,7 +74,7 @@ app.post('/rate/', cors(issue2options),db.rate);
 
 
 // start face api //
-
+/*
 
 'use strict';
 
@@ -119,6 +119,7 @@ request.post('/detect/',options, (error, response, body) => {
   console.log('JSON Response\n');
   console.log(jsonResponse);
 });
+*/
 
 // end face api //
 
