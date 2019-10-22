@@ -105,7 +105,7 @@ const options = {
     }
 };
 
-app.post('/detect/',options, (error, response, body) => {
+app.post('/detect/',cors(issue2options),options, (error, response, body) => {
   if (error) {
     console.log('Error: ', error);
     return;
