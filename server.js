@@ -70,8 +70,6 @@ app.get('/productoffer/:id', cors(issue2options), db.getProdById3offer);
 app.get('/getgraph/:id', cors(issue2options), db.getGraph);
 app.get('/alluser', cors(issue2options), db.getUser);
 
-app.post('/rate/', cors(issue2options),db.rate);
-
 
   
 app.listen(port, () => {
