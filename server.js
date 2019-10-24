@@ -38,7 +38,7 @@ var cors = require('cors')
 const bodyParser = require('body-parser')
 const db = require('./queries')
 var app = express()
-var port = process.env.PORT || 3030
+var port = process.env.PORT || 3000
 
 
 app.use(bodyParser.json())
@@ -70,7 +70,7 @@ app.post('/insertbasketoffer/', cors(issue2options), db.insertBusketOffer);
 app.get('/productoffer/:id', cors(issue2options), db.getProdById3offer);
 app.get('/getgraph/:id', cors(issue2options), db.getGraph);
 app.get('/alluser', cors(issue2options), db.getUser);
-//app.get('/getmonth/', cors(issue2options), db.getMonth);
+app.get('/getmonth/', cors(issue2options), db.getMonth);
 
 
 
