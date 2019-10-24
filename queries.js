@@ -1,6 +1,6 @@
 
 const Pool = require('pg').Pool
-//const request = require('request');
+const request = require('request');
 
 const pool = new Pool({
   host: 'onedemo.metrosystems.co.th',
