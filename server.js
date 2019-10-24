@@ -70,7 +70,7 @@ app.post('/insertbasketoffer/', cors(issue2options), db.insertBusketOffer);
 app.get('/productoffer/:id', cors(issue2options), db.getProdById3offer);
 app.get('/getgraph/:id', cors(issue2options), db.getGraph);
 app.get('/alluser', cors(issue2options), db.getUser);
-app.post('/monthly/', cors(issue2options), db.monthly);
+app.post('/monthly/', cors(issue2options), db.getMonthly);
 
 
 
