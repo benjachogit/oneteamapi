@@ -1,6 +1,6 @@
 // var express = require('express');
 // var app = express();
-//
+
 // // set the port of our application
 // // process.env.PORT lets the port be set by Heroku
 // var port = process.env.PORT || 8080;
@@ -70,7 +70,7 @@ app.post('/insertbasketoffer/', cors(issue2options), db.insertBusketOffer);
 app.get('/productoffer/:id', cors(issue2options), db.getProdById3offer);
 app.get('/getgraph/:id', cors(issue2options), db.getGraph);
 app.get('/alluser', cors(issue2options), db.getUser);
-//app.get('/getmonth/', cors(issue2options), db.getMonth);
+app.get('/getmonth/', cors(issue2options), db.getMonth);
 
 
 
