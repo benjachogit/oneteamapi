@@ -337,6 +337,5 @@ const insertBusketOffer = async (request, response) => {
     insertBusketOffer,
     getProdById3offer,
     getGraph,
-    getUser,
-    rate
+    getUser
   }
