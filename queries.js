@@ -319,7 +319,12 @@ const insertBusketOffer = async (request, response) => {
 
 // face start //
 
-//initial//
+
+
+// initial end//
+const getMonthly = async (req, res) => {
+  
+  //initial//
 // Replace <Subscription Key> with your valid subscription key.
 const subscriptionKey = '8b1838e13407455daf92a98bd51016ba';
 
@@ -348,9 +353,7 @@ const options = {
         'Ocp-Apim-Subscription-Key' : subscriptionKey
     }
 };
-
-// initial end//
-const getMonthly = async (req, res) => {
+  
   request.post(options, (error, response, body) => {
     if (error) {
       console.log('Error: ', error);
