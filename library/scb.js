@@ -4,6 +4,14 @@ var TYPES = require('tedious').TYPES;
 var dbconfig = require('./db');
 
 const signup = (request, response) => {
+    response.header('Access-Control-Allow-Origin':'*')
+    response.header('Access-Control-Allow-Credentials', 'true')
+    response.header(
+          'Access-Control-Allow-Methods',
+          'POST, GET, PUT, PATCH, DELETE, OPTIONS'
+        )
+        res.header('Access-Control-Allow-Headers', 'Content-Type, Option')
+    
     console.log(request.body)
 
     var empid = request.body.empid
