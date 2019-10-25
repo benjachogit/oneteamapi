@@ -424,19 +424,25 @@ const getMonth = async (req, res) => {
     if (gender == "female") {
 
       if (age >= 54 && age <= 80) {
+        age = age+4;
         cluster = "Cluster_1";
       } else if (age >= 41 && age <= 53) {
+        age = age+5;
         cluster = "Cluster_2";
       } else if (age >= 15 && age <= 40) {
+        age = age+5;
         cluster = "Cluster_3";
       }
     } if (gender == "male") {
 
       if (age >= 56 && age <= 80) {
+        age = age+3;
         cluster = "Cluster_6";
       } else if (age >= 42 && age <= 55) {
+        age = age+5;
         cluster = "Cluster_5";
       } else if (age >= 15 && age <= 41) {
+        age = age+5;
         cluster = "Cluster_4";
       }
     }
