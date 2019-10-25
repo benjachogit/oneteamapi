@@ -80,7 +80,7 @@ app.get('/getmonth/', cors(issue2options), db.getMonth);
 
 // book
 
-app.post('/signup', SCB.signup);
+app.post('/signup', cors(issue2options) ,SCB.signup);
 
 
 
