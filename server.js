@@ -37,8 +37,14 @@ const express = require('express')
 var cors = require('cors')
 const bodyParser = require('body-parser')
 const db = require('./queries')
+
+//book
+const SCB = require('./library/scb')
+
+
 var app = express()
 var port = process.env.PORT || 3000
+
 
 
 app.use(bodyParser.json())
@@ -72,6 +78,9 @@ app.get('/getgraph/:id', cors(issue2options), db.getGraph);
 app.get('/alluser', cors(issue2options), db.getUser);
 app.get('/getmonth/', cors(issue2options), db.getMonth);
 
+// book
+
+app.post('/signup', SCB.signup);
 
 
 
