@@ -5,7 +5,7 @@ var dbconfig = require('./db');
 
 const signup = (request, response) => {
     response.header('Access-Control-Allow-Origin':'*')
-    response.header('Access-Control-Allow-Credentials', 'true')
+    //response.header('Access-Control-Allow-Credentials', 'true')
     response.header(
           'Access-Control-Allow-Methods',
           'POST, GET, PUT, PATCH, DELETE, OPTIONS'
