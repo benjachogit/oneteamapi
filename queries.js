@@ -329,7 +329,13 @@ const insertBusketOffer = async (request, response) => {
 
 
 
-// face start //
+
+
+
+
+const getMonth = async (req, res) => {
+
+  // face start //
 //initial//
 // Replace <Subscription Key> with your valid subscription key.
 const subscriptionKey = '8b1838e13407455daf92a98bd51016ba';
@@ -339,18 +345,17 @@ const subscriptionKey = '8b1838e13407455daf92a98bd51016ba';
 // westus, replace "westcentralus" in the URL below with "westus".
 const uriDetect = 'https://southeastasia.api.cognitive.microsoft.com/face/v1.0/detect/';
 
-const imageUrl =
-  'https://noblesamplebot9711.blob.core.windows.net/oneteam/arun_1.PNG';
+var imageUrl = req.body.url;
 
 // Request parameters.
-const params = {
+var params = {
   'returnFaceId': 'true',
   'returnFaceLandmarks': 'false',
   'returnFaceAttributes': 'age,gender,headPose,smile,facialHair,glasses,' +
     'emotion,hair,makeup,occlusion,accessories,blur,exposure,noise'
 };
 
-const options = {
+var options = {
   uri: uriDetect,
   qs: params,
   body: '{"url": ' + '"' + imageUrl + '"}',
@@ -363,9 +368,6 @@ const options = {
 
 // initial end//
 
-
-
-const getMonth = async (req, res) => {
   console.log("access");
 
   request.post(options, (error, response, body) => {
@@ -379,41 +381,50 @@ const getMonth = async (req, res) => {
     var month = date.getMonth() + 1;
     var day = date.getDate();
 
-    let gender = jsonResponse[0].faceAttributes.gender;
-    let age = jsonResponse[0].faceAttributes.age;
+    const gender = jsonResponse[0].faceAttributes.gender;
+    var age = jsonResponse[0].faceAttributes.age;
     console.log('JSON Response\n');
-    console.log("age: ", age + " , gender: " + gender);
-
+    console.log("age: ", age + " , gender: ", gender);
+    
     var cluster = "";
-    if (gender = "female") {
+    if (gender == "female") {
+      
       if (age >= 54 && age <= 80) {
         cluster = "Cluster_1";
       } else if (age >= 41 && age <= 53) {
-        cluster = "Cluster_2"
+        cluster = "Cluster_2";
       } else if (age >= 15 && age <= 40) {
-        cluster = "Cluster_3"
+        cluster = "Cluster_3";
       }
-      else {
-        cluster = "Cluster_3"
-      }
-    } if (gender = "male") {
+    } if (gender == "male") {
+      
       if (age >= 56 && age <= 80) {
         cluster = "Cluster_6";
       } else if (age >= 42 && age <= 55) {
-        cluster = "Cluster_5"
+        cluster = "Cluster_5";
       } else if (age >= 15 && age <= 41) {
-        cluster = "Cluster_4"
-      } else {
-        cluster = "Cluster_4"
-      }
+        cluster = "Cluster_4";
+      } 
     }
+    else{
+      cluster = "Cluster_1";
+    }
+    console.log(gender);
     pool.query('SELECT round_500 FROM  public_b1.cluster_monthly_spent where cluster_group = $1 and Day = $2 and Month = $3;', [cluster, day, month], (error, results) => {
       if (error) {
         throw error
       }
       // response.status(200).json(results.rows);
       console.log(day + " " + month + " " + cluster);
-      res.send(results.rows);
+      var cluster_json = '{"cluster": "' +cluster+ '"}';
+      var gender_json = '{"gender": "' +gender+ '"}';
+      var age_json = '{"age": "'+ age +'"}';
+
+      var clustering = JSON.parse(cluster_json);
+      var gendering = JSON.parse(gender_json);
+      var aging = JSON.parse(age_json);
+      var obj = Object.assign(results.rows[0], gendering, aging,clustering);
+      res.send(obj);
     })
   });
 
