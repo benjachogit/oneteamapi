@@ -14,6 +14,23 @@ const pool = new Pool({
 /////////////////////////////////////////////////
 
 
+
+// tor
+const getPrice = (request, response) => {
+  let date_ob = new Date();
+  var day = date_ob.getDate();
+  var month = ((date_ob.getMonth() + 1));
+  
+  pool.query('SELECT * FROM public_b1.retail_comp AS RC INNER JOIN (SELECT ItemCode,"0.8=1" FROM  public_b1.item_margin WHERE day=CAST('+day+' as CHAR(50)) and month=CAST('+month+' as CHAR(50)) ) DT ON DT.ItemCode=RC.item_id  WHERE RC.timestamp IN (SELECT max(timestamp) FROM public_b1.retail_comp ) ORDER BY retail_name ASC;', (error, results) => {
+
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results)
+  })
+}
+
+
 const getProd = (request, response) => {
   pool.query('SELECT * FROM  public_b1.retail_comp;', (error, results) => {
     if (error) {
@@ -555,5 +572,6 @@ module.exports = {
   getProdById3offer,
   getGraph,
   getUser,
-  getMonth
+  getMonth,
+  getPrice
 }
