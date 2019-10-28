@@ -204,11 +204,12 @@ const getUser = (req, res) => {
 
 //register
 const register = (req, res, next) => {
-  const query = `INSERT INTO userlogin (firstname , lastname , image ,churn) VALUES ($1,$2,$3,$4)`;
+  const query = `INSERT INTO userlogin (firstname , lastname , image ,churn,gender) VALUES ($1,$2,$3,$4,$5)`;
   var firstname = req.body.fname;
   var lastname = req.body.lname;
   var image = req.body.bloblink;
   var churn = req.body.churn;
+  var gender = req.body.gender;
   var userid = "user1";
 
 
