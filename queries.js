@@ -401,7 +401,7 @@ const getMonthBook = async (req, res) => {
       var paramsIden = {
         'personGroupId': 'oneteam',
         'faceIds': arrfaceid,
-        'confidenceThreshold': 0.4,
+        'confidenceThreshold': 0.7,
         'maxNumOfCandidatesReturned': 1
       };
 
