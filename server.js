@@ -74,7 +74,7 @@ app.get('/product3/:id', cors(issue2options), db.getProdById3);
 app.get('/product2/:id', cors(issue2options), db.getProdById2);
 app.get('/product4/', cors(issue2options),db.getProdById4);
 app.get('/product/:id', cors(issue2options), db.getProdById3);
-app.get('/getoffer/:id', cors(issue2options), db.getOfferbyId);
+app.get('/getoffer/:id/:gender', cors(issue2options), db.getOfferbyId);
 app.get('/getbasket/:id', cors(issue2options), db.getBuskets);
 app.post('/insertbasket/', cors(issue2options), db.insertBusket);
 app.get('/getpicture/', cors(issue2options), db.getPic);

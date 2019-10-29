@@ -55,8 +55,9 @@ const getPic = (request, response) => {
 //get offer
 const getOfferbyId = (request, response) => {
   const id = request.params.id
+  const gender = request.params.gender
   // pool.query('SELECT item_code , new_name , item_pic , qr_pic , qr_promo FROM public_b1.item_offer WHERE item_code IN (SELECT pred_item1 FROM public_b1.item_offer WHERE item_code = $1) OR item_code IN (SELECT pred_item2 FROM public_b1.item_offer WHERE item_code = $1) ;', [id], (error, results) => {
-  pool.query('SELECT * FROM public_b1.new_item_offer WHERE itemcode = $1;', [id], (error, results) => {
+  pool.query('SELECT * FROM public_b1.new_item_offer WHERE itemcode = $1 and gender = $2;', [id,gender], (error, results) => {
 
     if (error) {
       throw error
@@ -392,7 +393,7 @@ const getMonthBook = async (req, res) => {
       var day = date.getDate();
       console.log(jsonResponse);
       if (jsonResponse[0] == undefined) {
-        res.send("Can not detect face.");
+        res.json({});
       }
       console.log(jsonResponse[0].faceId);
 
@@ -591,7 +592,7 @@ const getName = async (req, res) => {
     var day = date.getDate();
     console.log(jsonResponse);
     if (jsonResponse[0] == undefined) {
-      res.send("Can not detect face.");
+      res.json({});
     }
     else{
     console.log(jsonResponse[0].faceId);
