@@ -233,7 +233,7 @@ const register = (req, res, next) => {
   var userid = "user1";
 
 
-  pool.query(query, [firstname, lastname, image, churn], (err, result) => {
+  pool.query(query, [firstname, lastname, image, churn,gender], (err, result) => {
     if (err) {
       console.log(err);
     } else {
