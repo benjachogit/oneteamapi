@@ -21,7 +21,7 @@ const getPrice = (request, response) => {
   var day = date_ob.getDate();
   var month = ((date_ob.getMonth() + 1));
 
-  pool.query('SELECT * FROM public_b1.retail_comp AS RC INNER JOIN (SELECT itemcode,upsale FROM  public_b1.item_margin WHERE day=' + day + ' and month=' + month + ' DT ON DT.ItemCode=RC.item_id  WHERE RC.timestamp IN (SELECT max(timestamp) FROM public_b1.retail_comp ) ORDER BY retail_name ASC;', (error, results) => {
+  pool.query('SELECT * FROM public_b1.retail_comp AS RC INNER JOIN (SELECT itemcode,upsale FROM  public_b1.item_margin WHERE day=' + day + 'and month=' + month + '  ) DT ON DT.ItemCode=RC.item_id  WHERE RC.timestamp IN (SELECT max(timestamp) FROM public_b1.retail_comp ) ORDER BY retail_name ASC;', (error, results) => {
 
     if (error) {
       throw error
