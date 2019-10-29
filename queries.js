@@ -20,13 +20,13 @@ const getPrice = (request, response) => {
   let date_ob = new Date();
   var day = date_ob.getDate();
   var month = ((date_ob.getMonth() + 1));
-  
-  pool.query('SELECT * FROM public_b1.retail_comp AS RC INNER JOIN (SELECT ItemCode,"0.8=1" FROM  public_b1.item_margin WHERE day=CAST('+day+' as CHAR(50)) and month=CAST('+month+' as CHAR(50)) ) DT ON DT.ItemCode=RC.item_id  WHERE RC.timestamp IN (SELECT max(timestamp) FROM public_b1.retail_comp ) ORDER BY retail_name ASC;', (error, results) => {
+
+  pool.query('SELECT * FROM public_b1.retail_comp AS RC INNER JOIN (SELECT ItemCode,"0.8=1" FROM  public_b1.item_margin WHERE day=CAST(' + day + ' as CHAR(50)) and month=CAST(' + month + ' as CHAR(50)) ) DT ON DT.ItemCode=RC.item_id  WHERE RC.timestamp IN (SELECT max(timestamp) FROM public_b1.retail_comp ) ORDER BY retail_name ASC;', (error, results) => {
 
     if (error) {
       throw error
     }
-    response.status(200).json(results)
+    response.status(200).json(results.rows)
   })
 }
 
@@ -55,10 +55,10 @@ const getPic = (request, response) => {
 //get offer
 const getOfferbyId = (request, response) => {
   const id = request.params.id
- // pool.query('SELECT item_code , new_name , item_pic , qr_pic , qr_promo FROM public_b1.item_offer WHERE item_code IN (SELECT pred_item1 FROM public_b1.item_offer WHERE item_code = $1) OR item_code IN (SELECT pred_item2 FROM public_b1.item_offer WHERE item_code = $1) ;', [id], (error, results) => {
- pool.query('SELECT * FROM public_b1.new_item_offer WHERE itemcode = $1;', [id], (error, results) => {
-  
- if (error) {
+  // pool.query('SELECT item_code , new_name , item_pic , qr_pic , qr_promo FROM public_b1.item_offer WHERE item_code IN (SELECT pred_item1 FROM public_b1.item_offer WHERE item_code = $1) OR item_code IN (SELECT pred_item2 FROM public_b1.item_offer WHERE item_code = $1) ;', [id], (error, results) => {
+  pool.query('SELECT * FROM public_b1.new_item_offer WHERE itemcode = $1;', [id], (error, results) => {
+
+    if (error) {
       throw error
     }
     response.status(200).json(results.rows)
@@ -338,22 +338,7 @@ const insertBusketOffer = async (request, response) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const getMonth = async (req, res) => {
+const getMonthBook = async (req, res) => {
 
   // face start //
   //initial//
@@ -366,8 +351,8 @@ const getMonth = async (req, res) => {
   // westus, replace "westcentralus" in the URL below with "westus".
   const uriDetect = 'https://southeastasia.api.cognitive.microsoft.com/face/v1.0/detect/';
   const uriIdentify = 'https://southeastasia.api.cognitive.microsoft.com/face/v1.0/identify/';
-  
-  
+
+
 
   // Request parameters.
   var params = {
@@ -380,7 +365,7 @@ const getMonth = async (req, res) => {
   pool.query('SELECT * FROM public.userlogin ORDER BY id DESC LIMIT 1;', (error, resultss) => {
     if (error) {
       throw error
-    }else{
+    } else {
       console.log(resultss);
       var imageUrl = resultss.rows[0].image;
       console.log(imageUrl);
@@ -406,11 +391,11 @@ const getMonth = async (req, res) => {
       var month = date.getMonth() + 1;
       var day = date.getDate();
       console.log(jsonResponse);
-      if(jsonResponse[0] == undefined){
+      if (jsonResponse[0] == undefined) {
         res.send("Can not detect face.");
       }
       console.log(jsonResponse[0].faceId);
-  
+
       var arrfaceid = [jsonResponse[0].faceId];
       var paramsIden = {
         'personGroupId': 'oneteam',
@@ -418,11 +403,11 @@ const getMonth = async (req, res) => {
         'confidenceThreshold': 0.4,
         'maxNumOfCandidatesReturned': 1
       };
-  
+
       console.log(paramsIden);
-  
-  
-  
+
+
+
       // identify face
       var optionsidentify = {
         uri: uriIdentify,
@@ -433,23 +418,23 @@ const getMonth = async (req, res) => {
           'Ocp-Apim-Subscription-Key': subscriptionKey
         }
       };
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
+
       const gender = jsonResponse[0].faceAttributes.gender;
       var age = jsonResponse[0].faceAttributes.age;
       console.log('JSON Response\n');
       console.log("age: ", age + " , gender: ", gender);
-  
+
       var cluster = "";
-      if(age>20 && age<75){
+      if (age > 20 && age < 75) {
         age = age + 6;
-      }else if(age>15 && age <=20){
+      } else if (age > 15 && age <= 20) {
         age = age + 5;
       }
       if (gender == "female") {
@@ -461,7 +446,7 @@ const getMonth = async (req, res) => {
           cluster = "Cluster_3";
         }
       } if (gender == "male") {
-  
+
         if (age >= 56 && age <= 80) {
           cluster = "Cluster_6";
         } else if (age >= 42 && age <= 55) {
@@ -478,7 +463,7 @@ const getMonth = async (req, res) => {
         if (error) {
           throw error
         }
-  
+
         request.post(optionsidentify, (error1, res1, body1) => {
           if (error1) {
             console.log("////////////////////////////////////////");
@@ -486,7 +471,7 @@ const getMonth = async (req, res) => {
             return;
           }
           console.log(body1[0].candidates[0]);
-          if(body1[0].candidates[0] != undefined){
+          if (body1[0].candidates[0] != undefined) {
             var identifyId = body1[0].candidates[0].personId;
             console.log(body1[0].candidates[0]);
           }
@@ -498,7 +483,7 @@ const getMonth = async (req, res) => {
           */
           var uriPerson = 'https://southeastasia.api.cognitive.microsoft.com/face/v1.0/persongroups/oneteam/persons/' + identifyId;
           console.log(uriPerson);
-  
+
           var optionsPerson = {
             uri: uriPerson,
             headers: {
@@ -513,24 +498,24 @@ const getMonth = async (req, res) => {
               return;
             }
             console.log(JSON.parse(body2).name);
-  
-  
-  
-  
+
+
+
+
             // response.status(200).json(results.rows);
             console.log(day + " " + month + " " + cluster);
             var cluster_json = '{"cluster": "' + cluster + '"}';
             var gender_json = '{"gender": "' + gender + '"}';
             var age_json = '{"age": "' + age + '"}';
-  
+
             var clustering = JSON.parse(cluster_json);
             var gendering = JSON.parse(gender_json);
             var aging = JSON.parse(age_json);
-  
+
             if (body2 != undefined) {
               var name_json = '{"name": "' + JSON.parse(body2).name + '"}';
               var naming = JSON.parse(name_json);
-  
+
               var obj = Object.assign(results.rows[0], gendering, aging, clustering, naming);
               res.send(obj);
             }
@@ -538,25 +523,218 @@ const getMonth = async (req, res) => {
               var obj = Object.assign(results.rows[0], gendering, aging, clustering);
               res.send(obj);
             }
-  
+
           });
-  
+
         });
-  
+
       })
     });
-     
+
   });
 
   // initial end//
 
 }
 
-
-
-
-
 // face end //
+
+
+
+
+
+const getName = async (req, res) => {
+
+  // face start //
+  //initial//
+  // Replace <Subscription Key> with your valid subscription key.
+  const subscriptionKey = '8b1838e13407455daf92a98bd51016ba';
+
+
+  // You must use the same location in your REST call as you used to get your
+  // subscription keys. For example, if you got your subscription keys from
+  // westus, replace "westcentralus" in the URL below with "westus".
+  const uriDetect = 'https://southeastasia.api.cognitive.microsoft.com/face/v1.0/detect/';
+  const uriIdentify = 'https://southeastasia.api.cognitive.microsoft.com/face/v1.0/identify/';
+
+  var imageUrl = req.body.url;
+
+  // Request parameters.
+  var params = {
+    'returnFaceId': 'true',
+    'returnFaceLandmarks': 'false',
+    'returnFaceAttributes': 'age,gender,headPose,smile,facialHair,glasses,' +
+      'emotion,hair,makeup,occlusion,accessories,blur,exposure,noise'
+  };
+  console.log(params);
+
+  var optionsdetect = {
+    uri: uriDetect,
+    qs: params,
+    body: '{"url": ' + '"' + imageUrl + '"}',
+    headers: {
+      'Content-Type': 'application/json',
+      'Ocp-Apim-Subscription-Key': subscriptionKey
+    }
+  };
+
+
+  request.post(optionsdetect, (error, response, body) => {
+    if (error) {
+      console.log('Error: ', error);
+      return;
+    }
+    let jsonResponse = JSON.parse(body);
+    //let res = JSON.stringify(jsonResponse, null, '  ');
+    var date = new Date();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    console.log(jsonResponse);
+    if (jsonResponse[0] == undefined) {
+      res.send("Can not detect face.");
+    }
+    else{
+    console.log(jsonResponse[0].faceId);
+
+    var arrfaceid = [jsonResponse[0].faceId];
+    var paramsIden = {
+      'personGroupId': 'oneteam',
+      'faceIds': arrfaceid,
+      'confidenceThreshold': 0.4,
+      'maxNumOfCandidatesReturned': 1
+    };
+
+    console.log(paramsIden);
+
+
+
+    // identify face
+    var optionsidentify = {
+      uri: uriIdentify,
+      body: paramsIden,
+      json: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'Ocp-Apim-Subscription-Key': subscriptionKey
+      }
+    };
+
+
+
+
+
+
+
+
+    const gender = jsonResponse[0].faceAttributes.gender;
+    var age = jsonResponse[0].faceAttributes.age;
+    console.log('JSON Response\n');
+    console.log("age: ", age + " , gender: ", gender);
+
+    var cluster = "";
+    if (age > 20 && age < 75) {
+      age = age + 6;
+    } else if (age > 15 && age <= 20) {
+      age = age + 5;
+    }
+    if (gender == "female") {
+      if (age >= 54 && age <= 80) {
+        cluster = "Cluster_1";
+      } else if (age >= 41 && age <= 53) {
+        cluster = "Cluster_2";
+      } else if (age >= 15 && age <= 40) {
+        cluster = "Cluster_3";
+      }
+    } if (gender == "male") {
+
+      if (age >= 56 && age <= 80) {
+        cluster = "Cluster_6";
+      } else if (age >= 42 && age <= 55) {
+        cluster = "Cluster_5";
+      } else if (age >= 15 && age <= 41) {
+        cluster = "Cluster_4";
+      }
+    }
+    else {
+      cluster = "Cluster_1";
+    }
+    console.log(gender);
+    pool.query('SELECT round_500 FROM  public_b1.cluster_monthly_spent where cluster_group = $1 and Day = $2 and Month = $3;', [cluster, day, month], (error, results) => {
+      if (error) {
+        throw error
+      }
+
+      request.post(optionsidentify, (error1, res1, body1) => {
+        if (error1) {
+          console.log("////////////////////////////////////////");
+          console.log('Error: ', error1);
+          return;
+        }
+        console.log(body1[0].candidates[0]);
+        if (body1[0].candidates[0] != undefined) {
+          var identifyId = body1[0].candidates[0].personId;
+          console.log(body1[0].candidates[0]);
+        }
+        /*
+              var paramsPerson = {
+                'personGroupId': 'oneteam',
+                'personId': identifyId,
+              };
+        */
+        var uriPerson = 'https://southeastasia.api.cognitive.microsoft.com/face/v1.0/persongroups/oneteam/persons/' + identifyId;
+        console.log(uriPerson);
+
+        var optionsPerson = {
+          uri: uriPerson,
+          headers: {
+            'Content-Type': 'application/json',
+            'Ocp-Apim-Subscription-Key': subscriptionKey
+          }
+        };
+        request.get(optionsPerson, (error2, res2, body2) => {
+          if (error2) {
+            console.log("////////////////////////////////////////");
+            console.log('Error: ', error2);
+            return;
+          }
+          console.log(JSON.parse(body2).name);
+
+
+
+
+          // response.status(200).json(results.rows);
+          console.log(day + " " + month + " " + cluster);
+          var cluster_json = '{"cluster": "' + cluster + '"}';
+          var gender_json = '{"gender": "' + gender + '"}';
+          var age_json = '{"age": "' + age + '"}';
+
+          var clustering = JSON.parse(cluster_json);
+          var gendering = JSON.parse(gender_json);
+          var aging = JSON.parse(age_json);
+
+          if (body2 != undefined) {
+            var name_json = '{"name": "' + JSON.parse(body2).name + '"}';
+            var naming = JSON.parse(name_json);
+
+            var obj = Object.assign(results.rows[0], gendering, aging, clustering, naming);
+            res.send(obj);
+          }
+          else {
+            var obj = Object.assign(results.rows[0], gendering, aging, clustering);
+            res.send(obj);
+          }
+
+        });
+
+      });
+
+    })
+  }
+  });
+  // initial end//
+
+}
+
 
 
 
@@ -583,6 +761,7 @@ module.exports = {
   getProdById3offer,
   getGraph,
   getUser,
-  getMonth,
-  getPrice
+  getMonthBook,
+  getPrice,
+  getName
 }

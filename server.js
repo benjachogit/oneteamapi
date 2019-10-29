@@ -83,7 +83,8 @@ app.post('/insertbasketoffer/', cors(issue2options), db.insertBusketOffer);
 app.get('/productoffer/:id', cors(issue2options), db.getProdById3offer);
 app.get('/getgraph/:id', cors(issue2options), db.getGraph);
 app.get('/alluser', cors(issue2options), db.getUser);
-app.get('/getmonth/', cors(issue2options), db.getMonth);
+app.get('/getround500/', cors(issue2options), db.getMonthBook);
+app.get('/getname/', cors(issue2options), db.getName);
 app.get('/getprice/', cors(issue2options), db.getPrice);
 
 // book
