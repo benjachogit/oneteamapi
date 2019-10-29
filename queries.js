@@ -460,7 +460,7 @@ const getMonthBook = async (req, res) => {
         cluster = "Cluster_1";
       }
       console.log(gender);
-      pool.query('SELECT round_500 FROM  public_b1.cluster_monthly_spent where cluster_group = $1 and Day = $2 and Month = $3;', [cluster, day, month], (error, results) => {
+      pool.query('SELECT round_500 , coupon FROM  public_b1.cluster_monthly_spent where cluster_group = $1 and Day = $2 and Month = $3;', [cluster, day, month], (error, results) => {
         if (error) {
           throw error
         }
