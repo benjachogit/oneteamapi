@@ -423,12 +423,6 @@ const getMonthBook = async (req, res) => {
         };
 
 
-
-
-
-
-
-
         const gender = jsonResponse[0].faceAttributes.gender;
         var age = jsonResponse[0].faceAttributes.age;
         console.log('JSON Response\n');
@@ -473,7 +467,7 @@ const getMonthBook = async (req, res) => {
               console.log('Error: ', error1);
               return;
             }
-            console.log(body1[0].candidates[0]);
+            
             if (body1[0].candidates[0] != undefined) {
               var identifyId = body1[0].candidates[0].personId;
               console.log(body1[0].candidates[0]);
@@ -533,7 +527,7 @@ const getMonthBook = async (req, res) => {
 
         })
       }
-      });
+    });
 
   });
 
