@@ -467,10 +467,14 @@ const getMonthBook = async (req, res) => {
               console.log('Error: ', error1);
               return;
             }
+            console.log(body1);
+            if(body1.length === 0){}
+            else{
             
             if (body1[0].candidates[0] != undefined) {
               var identifyId = body1[0].candidates[0].personId;
               console.log(body1[0].candidates[0]);
+            }
             }
             /*
                   var paramsPerson = {
