@@ -395,15 +395,17 @@ const getMonthBook = async (req, res) => {
       if (jsonResponse[0] == undefined) {
         res.json({});
       }
-      console.log(jsonResponse[0].faceId);
-
-      var arrfaceid = [jsonResponse[0].faceId];
-      var paramsIden = {
-        'personGroupId': 'oneteam',
-        'faceIds': arrfaceid,
-        'confidenceThreshold': 0.7,
-        'maxNumOfCandidatesReturned': 1
-      };
+      else {
+        console.log(jsonResponse[0].faceId);
+  
+        var arrfaceid = [jsonResponse[0].faceId];
+        var paramsIden = {
+          'personGroupId': 'oneteam',
+          'faceIds': arrfaceid,
+          'confidenceThreshold': 0.7,
+          'maxNumOfCandidatesReturned': 1
+        };
+      
 
       console.log(paramsIden);
 
