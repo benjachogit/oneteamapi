@@ -467,8 +467,8 @@ const getMonthBook = async (req, res) => {
               console.log('Error: ', error1);
               return;
             }
-            console.log(body1);
-            if(body1.length === 0){}
+            console.log("Nophere",body1);
+            if(body1[0] != undefined){}
             else{
             
             if (body1[0].candidates[0] != undefined) {
