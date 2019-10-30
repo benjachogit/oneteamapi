@@ -397,7 +397,7 @@ const getMonthBook = async (req, res) => {
       }
       else {
         console.log(jsonResponse[0].faceId);
-  
+
         var arrfaceid = [jsonResponse[0].faceId];
         var paramsIden = {
           'personGroupId': 'oneteam',
@@ -405,134 +405,135 @@ const getMonthBook = async (req, res) => {
           'confidenceThreshold': 0.7,
           'maxNumOfCandidatesReturned': 1
         };
-      
-
-      console.log(paramsIden);
 
 
+        console.log(paramsIden);
 
-      // identify face
-      var optionsidentify = {
-        uri: uriIdentify,
-        body: paramsIden,
-        json: true,
-        headers: {
-          'Content-Type': 'application/json',
-          'Ocp-Apim-Subscription-Key': subscriptionKey
+
+
+        // identify face
+        var optionsidentify = {
+          uri: uriIdentify,
+          body: paramsIden,
+          json: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Ocp-Apim-Subscription-Key': subscriptionKey
+          }
+        };
+
+
+
+
+
+
+
+
+        const gender = jsonResponse[0].faceAttributes.gender;
+        var age = jsonResponse[0].faceAttributes.age;
+        console.log('JSON Response\n');
+        console.log("age: ", age + " , gender: ", gender);
+
+        var cluster = "";
+        if (age > 20 && age < 75) {
+          age = age + 6;
+        } else if (age > 15 && age <= 20) {
+          age = age + 5;
         }
-      };
+        if (gender == "female") {
+          if (age >= 54 && age <= 80) {
+            cluster = "Cluster_1";
+          } else if (age >= 41 && age <= 53) {
+            cluster = "Cluster_2";
+          } else if (age >= 15 && age <= 40) {
+            cluster = "Cluster_3";
+          }
+        } if (gender == "male") {
 
-
-
-
-
-
-
-
-      const gender = jsonResponse[0].faceAttributes.gender;
-      var age = jsonResponse[0].faceAttributes.age;
-      console.log('JSON Response\n');
-      console.log("age: ", age + " , gender: ", gender);
-
-      var cluster = "";
-      if (age > 20 && age < 75) {
-        age = age + 6;
-      } else if (age > 15 && age <= 20) {
-        age = age + 5;
-      }
-      if (gender == "female") {
-        if (age >= 54 && age <= 80) {
+          if (age >= 56 && age <= 80) {
+            cluster = "Cluster_6";
+          } else if (age >= 42 && age <= 55) {
+            cluster = "Cluster_5";
+          } else if (age >= 15 && age <= 41) {
+            cluster = "Cluster_4";
+          }
+        }
+        else {
           cluster = "Cluster_1";
-        } else if (age >= 41 && age <= 53) {
-          cluster = "Cluster_2";
-        } else if (age >= 15 && age <= 40) {
-          cluster = "Cluster_3";
         }
-      } if (gender == "male") {
-
-        if (age >= 56 && age <= 80) {
-          cluster = "Cluster_6";
-        } else if (age >= 42 && age <= 55) {
-          cluster = "Cluster_5";
-        } else if (age >= 15 && age <= 41) {
-          cluster = "Cluster_4";
-        }
-      }
-      else {
-        cluster = "Cluster_1";
-      }
-      console.log(gender);
-      pool.query('SELECT round_500 , coupon FROM  public_b1.cluster_monthly_spent where cluster_group = $1 and Day = $2 and Month = $3;', [cluster, day, month], (error, results) => {
-        if (error) {
-          throw error
-        }
-
-        request.post(optionsidentify, (error1, res1, body1) => {
-          if (error1) {
-            console.log("////////////////////////////////////////");
-            console.log('Error: ', error1);
-            return;
+        console.log(gender);
+        pool.query('SELECT round_500 , coupon FROM  public_b1.cluster_monthly_spent where cluster_group = $1 and Day = $2 and Month = $3;', [cluster, day, month], (error, results) => {
+          if (error) {
+            throw error
           }
-          console.log(body1[0].candidates[0]);
-          if (body1[0].candidates[0] != undefined) {
-            var identifyId = body1[0].candidates[0].personId;
-            console.log(body1[0].candidates[0]);
-          }
-          /*
-                var paramsPerson = {
-                  'personGroupId': 'oneteam',
-                  'personId': identifyId,
-                };
-          */
-          var uriPerson = 'https://southeastasia.api.cognitive.microsoft.com/face/v1.0/persongroups/oneteam/persons/' + identifyId;
-          console.log(uriPerson);
 
-          var optionsPerson = {
-            uri: uriPerson,
-            headers: {
-              'Content-Type': 'application/json',
-              'Ocp-Apim-Subscription-Key': subscriptionKey
-            }
-          };
-          request.get(optionsPerson, (error2, res2, body2) => {
-            if (error2) {
+          request.post(optionsidentify, (error1, res1, body1) => {
+            if (error1) {
               console.log("////////////////////////////////////////");
-              console.log('Error: ', error2);
+              console.log('Error: ', error1);
               return;
             }
-            console.log(JSON.parse(body2).name);
-
-
-
-
-            // response.status(200).json(results.rows);
-            console.log(day + " " + month + " " + cluster);
-            var cluster_json = '{"cluster": "' + cluster + '"}';
-            var gender_json = '{"gender": "' + gender + '"}';
-            var age_json = '{"age": "' + age + '"}';
-
-            var clustering = JSON.parse(cluster_json);
-            var gendering = JSON.parse(gender_json);
-            var aging = JSON.parse(age_json);
-
-            if (body2 != undefined) {
-              var name_json = '{"name": "' + JSON.parse(body2).name + '"}';
-              var naming = JSON.parse(name_json);
-
-              var obj = Object.assign(results.rows[0], gendering, aging, clustering, naming);
-              res.send(obj);
+            console.log(body1[0].candidates[0]);
+            if (body1[0].candidates[0] != undefined) {
+              var identifyId = body1[0].candidates[0].personId;
+              console.log(body1[0].candidates[0]);
             }
-            else {
-              var obj = Object.assign(results.rows[0], gendering, aging, clustering);
-              res.send(obj);
-            }
+            /*
+                  var paramsPerson = {
+                    'personGroupId': 'oneteam',
+                    'personId': identifyId,
+                  };
+            */
+            var uriPerson = 'https://southeastasia.api.cognitive.microsoft.com/face/v1.0/persongroups/oneteam/persons/' + identifyId;
+            console.log(uriPerson);
+
+            var optionsPerson = {
+              uri: uriPerson,
+              headers: {
+                'Content-Type': 'application/json',
+                'Ocp-Apim-Subscription-Key': subscriptionKey
+              }
+            };
+            request.get(optionsPerson, (error2, res2, body2) => {
+              if (error2) {
+                console.log("////////////////////////////////////////");
+                console.log('Error: ', error2);
+                return;
+              }
+              console.log(JSON.parse(body2).name);
+
+
+
+
+              // response.status(200).json(results.rows);
+              console.log(day + " " + month + " " + cluster);
+              var cluster_json = '{"cluster": "' + cluster + '"}';
+              var gender_json = '{"gender": "' + gender + '"}';
+              var age_json = '{"age": "' + age + '"}';
+
+              var clustering = JSON.parse(cluster_json);
+              var gendering = JSON.parse(gender_json);
+              var aging = JSON.parse(age_json);
+
+              if (body2 != undefined) {
+                var name_json = '{"name": "' + JSON.parse(body2).name + '"}';
+                var naming = JSON.parse(name_json);
+
+                var obj = Object.assign(results.rows[0], gendering, aging, clustering, naming);
+                res.send(obj);
+              }
+              else {
+                var obj = Object.assign(results.rows[0], gendering, aging, clustering);
+                res.send(obj);
+              }
+
+            });
 
           });
 
-        });
-
-      })
-    });
+        })
+      }
+      });
 
   });
 
@@ -765,14 +766,14 @@ const getDiscount = (request, response) => {
         var totally = JSON.parse(total_json);
         response.json(totally);
       }
-      else if(price < results.rows[0].round_500) {
+      else if (price < results.rows[0].round_500) {
         console.log("//////////////normal////////////");
         var total_json2 = '{"total": "' + JSON.parse(price) + '"}';
         var totally2 = JSON.parse(total_json2);
         response.json(totally2);
       }
     }
-    else{
+    else {
       response.json("undefined cluster");
     }
 
