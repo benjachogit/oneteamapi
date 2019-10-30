@@ -238,7 +238,7 @@ const register = (req, res, next) => {
       console.log(err);
     } else {
 
-      pool.query('SELECT COUNT(*) as userid FROM userlogin', (err, result) => {
+      pool.query('SELECT id as userid FROM userlogin order by id desc limit 1', (err, result) => {
         if (err) {
           console.log(err);
         } else {
