@@ -90,6 +90,7 @@ app.get('/getprice/', cors(issue2options), db.getPrice);
 // book
 
 app.post('/signup', cors(issue2options) ,SCB.signup);
+app.get('/getdiscount/:price/:cluster', cors(issue2options), db.getDiscount);
 
 
 

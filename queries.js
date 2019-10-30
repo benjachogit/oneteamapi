@@ -57,7 +57,7 @@ const getOfferbyId = (request, response) => {
   const id = request.params.id
   const gender = request.params.gender
   // pool.query('SELECT item_code , new_name , item_pic , qr_pic , qr_promo FROM public_b1.item_offer WHERE item_code IN (SELECT pred_item1 FROM public_b1.item_offer WHERE item_code = $1) OR item_code IN (SELECT pred_item2 FROM public_b1.item_offer WHERE item_code = $1) ;', [id], (error, results) => {
-  pool.query('SELECT * FROM public_b1.new_item_offer WHERE itemcode = $1 and gender = $2;', [id,gender], (error, results) => {
+  pool.query('SELECT * FROM public_b1.new_item_offer WHERE itemcode = $1 and gender = $2;', [id, gender], (error, results) => {
 
     if (error) {
       throw error
@@ -233,7 +233,7 @@ const register = (req, res, next) => {
   var userid = "user1";
 
 
-  pool.query(query, [firstname, lastname, image, churn,gender], (err, result) => {
+  pool.query(query, [firstname, lastname, image, churn, gender], (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -594,148 +594,188 @@ const getName = async (req, res) => {
     if (jsonResponse[0] == undefined) {
       res.json({});
     }
-    else{
-    console.log(jsonResponse[0].faceId);
-
-    var arrfaceid = [jsonResponse[0].faceId];
-    var paramsIden = {
-      'personGroupId': 'oneteam',
-      'faceIds': arrfaceid,
-      'confidenceThreshold': 0.7,
-      'maxNumOfCandidatesReturned': 1
-    };
-
-    console.log(paramsIden);
-
-
-
-    // identify face
-    var optionsidentify = {
-      uri: uriIdentify,
-      body: paramsIden,
-      json: true,
-      headers: {
-        'Content-Type': 'application/json',
-        'Ocp-Apim-Subscription-Key': subscriptionKey
-      }
-    };
-
-
-
-
-
-
-
-
-    const gender = jsonResponse[0].faceAttributes.gender;
-    var age = jsonResponse[0].faceAttributes.age;
-    console.log('JSON Response\n');
-    console.log("age: ", age + " , gender: ", gender);
-
-    var cluster = "";
-    if (age > 20 && age < 75) {
-      age = age + 6;
-    } else if (age > 15 && age <= 20) {
-      age = age + 5;
-    }
-    if (gender == "female") {
-      if (age >= 54 && age <= 80) {
-        cluster = "Cluster_1";
-      } else if (age >= 41 && age <= 53) {
-        cluster = "Cluster_2";
-      } else if (age >= 15 && age <= 40) {
-        cluster = "Cluster_3";
-      }
-    } if (gender == "male") {
-
-      if (age >= 56 && age <= 80) {
-        cluster = "Cluster_6";
-      } else if (age >= 42 && age <= 55) {
-        cluster = "Cluster_5";
-      } else if (age >= 15 && age <= 41) {
-        cluster = "Cluster_4";
-      }
-    }
     else {
-      cluster = "Cluster_1";
-    }
-    console.log(gender);
-    pool.query('SELECT round_500 FROM  public_b1.cluster_monthly_spent where cluster_group = $1 and Day = $2 and Month = $3;', [cluster, day, month], (error, results) => {
-      if (error) {
-        throw error
+      console.log(jsonResponse[0].faceId);
+
+      var arrfaceid = [jsonResponse[0].faceId];
+      var paramsIden = {
+        'personGroupId': 'oneteam',
+        'faceIds': arrfaceid,
+        'confidenceThreshold': 0.7,
+        'maxNumOfCandidatesReturned': 1
+      };
+
+      console.log(paramsIden);
+
+
+
+      // identify face
+      var optionsidentify = {
+        uri: uriIdentify,
+        body: paramsIden,
+        json: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'Ocp-Apim-Subscription-Key': subscriptionKey
+        }
+      };
+
+
+
+
+
+
+
+
+      const gender = jsonResponse[0].faceAttributes.gender;
+      var age = jsonResponse[0].faceAttributes.age;
+      console.log('JSON Response\n');
+      console.log("age: ", age + " , gender: ", gender);
+
+      var cluster = "";
+      if (age > 20 && age < 75) {
+        age = age + 6;
+      } else if (age > 15 && age <= 20) {
+        age = age + 5;
       }
-
-      request.post(optionsidentify, (error1, res1, body1) => {
-        if (error1) {
-          console.log("////////////////////////////////////////");
-          console.log('Error: ', error1);
-          return;
+      if (gender == "female") {
+        if (age >= 54 && age <= 80) {
+          cluster = "Cluster_1";
+        } else if (age >= 41 && age <= 53) {
+          cluster = "Cluster_2";
+        } else if (age >= 15 && age <= 40) {
+          cluster = "Cluster_3";
         }
-        console.log(body1[0].candidates[0]);
-        if (body1[0].candidates[0] != undefined) {
-          var identifyId = body1[0].candidates[0].personId;
-          console.log(body1[0].candidates[0]);
-        }
-        /*
-              var paramsPerson = {
-                'personGroupId': 'oneteam',
-                'personId': identifyId,
-              };
-        */
-        var uriPerson = 'https://southeastasia.api.cognitive.microsoft.com/face/v1.0/persongroups/oneteam/persons/' + identifyId;
-        console.log(uriPerson);
+      } if (gender == "male") {
 
-        var optionsPerson = {
-          uri: uriPerson,
-          headers: {
-            'Content-Type': 'application/json',
-            'Ocp-Apim-Subscription-Key': subscriptionKey
-          }
-        };
-        request.get(optionsPerson, (error2, res2, body2) => {
-          if (error2) {
+        if (age >= 56 && age <= 80) {
+          cluster = "Cluster_6";
+        } else if (age >= 42 && age <= 55) {
+          cluster = "Cluster_5";
+        } else if (age >= 15 && age <= 41) {
+          cluster = "Cluster_4";
+        }
+      }
+      else {
+        cluster = "Cluster_1";
+      }
+      console.log(gender);
+      pool.query('SELECT round_500 FROM  public_b1.cluster_monthly_spent where cluster_group = $1 and Day = $2 and Month = $3;', [cluster, day, month], (error, results) => {
+        if (error) {
+          throw error
+        }
+
+        request.post(optionsidentify, (error1, res1, body1) => {
+          if (error1) {
             console.log("////////////////////////////////////////");
-            console.log('Error: ', error2);
+            console.log('Error: ', error1);
             return;
           }
-          console.log(JSON.parse(body2).name);
-
-
-
-
-          // response.status(200).json(results.rows);
-          console.log(day + " " + month + " " + cluster);
-          var cluster_json = '{"cluster": "' + cluster + '"}';
-          var gender_json = '{"gender": "' + gender + '"}';
-          var age_json = '{"age": "' + age + '"}';
-
-          var clustering = JSON.parse(cluster_json);
-          var gendering = JSON.parse(gender_json);
-          var aging = JSON.parse(age_json);
-
-          if (body2 != undefined) {
-            var name_json = '{"name": "' + JSON.parse(body2).name + '"}';
-            var naming = JSON.parse(name_json);
-
-            var obj = Object.assign(results.rows[0], gendering, aging, clustering, naming);
-            res.send(obj);
+          console.log(body1[0].candidates[0]);
+          if (body1[0].candidates[0] != undefined) {
+            var identifyId = body1[0].candidates[0].personId;
+            console.log(body1[0].candidates[0]);
           }
-          else {
-            var obj = Object.assign(results.rows[0], gendering, aging, clustering);
-            res.send(obj);
-          }
+          /*
+                var paramsPerson = {
+                  'personGroupId': 'oneteam',
+                  'personId': identifyId,
+                };
+          */
+          var uriPerson = 'https://southeastasia.api.cognitive.microsoft.com/face/v1.0/persongroups/oneteam/persons/' + identifyId;
+          console.log(uriPerson);
+
+          var optionsPerson = {
+            uri: uriPerson,
+            headers: {
+              'Content-Type': 'application/json',
+              'Ocp-Apim-Subscription-Key': subscriptionKey
+            }
+          };
+          request.get(optionsPerson, (error2, res2, body2) => {
+            if (error2) {
+              console.log("////////////////////////////////////////");
+              console.log('Error: ', error2);
+              return;
+            }
+            console.log(JSON.parse(body2).name);
+
+
+
+
+            // response.status(200).json(results.rows);
+            console.log(day + " " + month + " " + cluster);
+            var cluster_json = '{"cluster": "' + cluster + '"}';
+            var gender_json = '{"gender": "' + gender + '"}';
+            var age_json = '{"age": "' + age + '"}';
+
+            var clustering = JSON.parse(cluster_json);
+            var gendering = JSON.parse(gender_json);
+            var aging = JSON.parse(age_json);
+
+            if (body2 != undefined) {
+              var name_json = '{"name": "' + JSON.parse(body2).name + '"}';
+              var naming = JSON.parse(name_json);
+
+              var obj = Object.assign(results.rows[0], gendering, aging, clustering, naming);
+              res.send(obj);
+            }
+            else {
+              var obj = Object.assign(results.rows[0], gendering, aging, clustering);
+              res.send(obj);
+            }
+
+          });
 
         });
 
-      });
-
-    })
-  }
+      })
+    }
   });
   // initial end//
 
 }
 
+
+const getDiscount = (request, response) => {
+  // const id = request.params.id
+  let date_ob = new Date();
+  var day = date_ob.getDate();
+  var month = ((date_ob.getMonth() + 1));
+
+  const price = request.params.price
+  const cluster = request.params.cluster
+
+  pool.query('SELECT coupon,round_500 FROM public_b1.cluster_monthly_spent WHERE cluster_group = $1 and day = $2 and month = $3;', [cluster, day, month], (error, results) => {
+    if (error) {
+      throw error
+    }
+    if (results.rows[0] != undefined) {
+      console.log("round: " + results.rows[0].round_500);
+      console.log("price: " + price);
+      console.log("cluster: " + cluster);
+      console.log("coupon: " + results.rows[0].coupon);
+      if (price > results.rows[0].round_500) {
+        console.log("//////////////coupon////////////");
+        var total = price - results.rows[0].coupon;
+        console.log("total: " + total);
+        var total_json = '{"total": "' + JSON.parse(total) + '"}';
+        var totally = JSON.parse(total_json);
+        response.json(totally);
+      }
+      else if(price < results.rows[0].round_500) {
+        console.log("//////////////normal////////////");
+        var total_json2 = '{"total": "' + JSON.parse(price) + '"}';
+        var totally2 = JSON.parse(total_json2);
+        response.json(totally2);
+      }
+    }
+    else{
+      response.json("undefined cluster");
+    }
+
+  })
+}
 
 
 
@@ -764,5 +804,6 @@ module.exports = {
   getUser,
   getMonthBook,
   getPrice,
-  getName
+  getName,
+  getDiscount
 }
